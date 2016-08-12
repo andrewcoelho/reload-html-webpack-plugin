@@ -1,0 +1,28 @@
+{
+  "name": "reload-html-webpack-plugin",
+  "version": "0.1.0",
+  "description": "Reloads your browser when your html changes",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Andrew Coelho <info@andrewcoelho.com> (http://andrewcoelho.com)",
+  "license": "ISC",
+  "dependencies": {
+    "socket.io": "^1.4.8"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/andrewcoelho/reload-html-webpack-plugin.git"
+  },
+  "keywords": [
+    "reload",
+    "html",
+    "webpack",
+    "plugin"
+  ],
+  "bugs": {
+    "url": "https://github.com/andrewcoelho/reload-html-webpack-plugin/issues"
+  },
+  "homepage": "https://github.com/andrewcoelho/reload-html-webpack-plugin#readme"
+}
