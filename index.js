@@ -1,28 +1,33 @@
-var io = require('socket.io')(8196);
+function ReloadPlugin() {}
 
-const newConnection = function() {
+ReloadPlugin.prototype.apply = function (compiler) {
+  const io = require('socket.io')(8196);
+
+  const newConnection = function () {
     const socket = io.connect('http://localhost:8196/');
 
-    socket.on('reload', function() {
-        window.location.reload();
+    socket.on('reload', () => {
+      window.location.reload();
     });
-};
+  };
 
-function ReloadPlugin() {};
-
-ReloadPlugin.prototype.apply = function(compiler) {
-    compiler.plugin('compilation', function(compilation) {
-        compilation.plugin('html-webpack-plugin-before-html-processing', function(htmlPluginData, callback) {
-            htmlPluginData.html += '<script src="http://localhost:8196/socket.io/socket.io.js"></script>';
-            htmlPluginData.html += '<script>var socket = io.connect("http://localhost:8196");socket.on("reload", function(){window.location.reload()});</script>'
-            callback(null, htmlPluginData);
-        });
-
-        compilation.plugin('html-webpack-plugin-after-emit', function(htmlPluginData, callback) {
-            io.emit('reload');
-            callback(null, htmlPluginData);
-        });
+  compiler.hooks.compilation.tap('ReloadPlugin', (compilation) => {
+    
+compilation.hooks.htmlWebpackPluginBeforeHtmlProcessing.tap('ReloadPlugin', 
+(data) => {
+      data.html += '<script 
+src="http://localhost:8196/socket.io/socket.io.js"></script>';
+      data.html +=
+        '<script>var socket = 
+io.connect("http://localhost:8196");socket.on("reload", 
+function(){window.location.reload()});</script>';
     });
+    compilation.hooks.htmlWebpackPluginAfterEmit.tap('ReloadPlugin', 
+(data) => {
+      io.emit('reload');
+    });
+  });
 };
 
 module.exports = ReloadPlugin;
+
