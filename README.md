@@ -12,7 +12,7 @@ var ReloadPlugin = require('reload-html-webpack-plugin');
 //
 
 plugins: [
-    new ReloadPlugin()
+    new ReloadPlugin({ delay: 0 })
 ]
 
 //
